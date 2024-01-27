@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using Packages.DataClassGenerator.Settings;
 using UnityEditor;
 using UnityEngine;
+using Amenonegames.DataClassGenerator.Settings;
 
 namespace Amenonegames.DataClassGenerator.Editor
 {

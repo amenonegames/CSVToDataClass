@@ -1,5 +1,5 @@
 {
-    "name": "Amenonegames.DataClassGenerator",
+    "name": "Amenonegames.DataClassGenerator.CSVHelperParser",
     "rootNamespace": "",
     "references": [
         "GUID:247ec38e52118fc4ebbbb5cd1b081455"

@@ -11,6 +11,12 @@
             "fileNames": [
                 "System.Linq.Async"
             ]
+        },
+        {
+            "packageName": "Csv",
+            "fileNames": [
+                "Csv"
+            ]
         }
     ]
 }

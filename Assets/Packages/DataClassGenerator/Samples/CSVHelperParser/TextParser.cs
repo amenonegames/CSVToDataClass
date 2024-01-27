@@ -3,10 +3,10 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Packages.DataClassGenerator.Settings;
+using Amenonegames.DataClassGenerator.Settings;
 using UnityEngine;
 
-namespace Amenonegames.CSVDataParser
+namespace Amenonegames.CSVHelperParser
 {
     public static class TextParser
     {

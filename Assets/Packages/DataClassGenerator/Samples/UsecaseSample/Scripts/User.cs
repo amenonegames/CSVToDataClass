@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Amenonegames.CSVDataParser;
+using Amenonegames.CSVHelperParser;
 using UnityEngine;
 using Assets.DataClassGenerator.Samples.UsecaseSample.Scripts;
 

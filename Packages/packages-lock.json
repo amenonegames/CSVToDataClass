@@ -142,6 +142,12 @@
       "dependencies": {},
       "hash": "50cef9770fff131e15fa98255192cd9081776fcb"
     },
+    "org.nuget.csv": {
+      "version": "file:Csv",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "org.nuget.csvhelper": {
       "version": "file:CsvHelper",
       "depth": 0,

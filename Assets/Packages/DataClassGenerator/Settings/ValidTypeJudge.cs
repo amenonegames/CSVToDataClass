@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Packages.DataClassGenerator.Settings
+namespace Amenonegames.DataClassGenerator.Settings
 {
     public static class ValidTypeJudge
     {

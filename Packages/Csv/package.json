@@ -1,0 +1,15 @@
+{
+    "name": "org.nuget.csv",
+    "version": "2.0.93",
+    "displayName": "Csv",
+    "description": "Really simple csv library",
+    "unity": "2018.3",
+    "keywords": [
+        "csv"
+    ],
+    "author": {
+        "name": "Steve Hansen",
+        "email": "",
+        "url": "https://github.com/stevehansen/csv/"
+    }
+}
