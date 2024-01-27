@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using Packages.DataClassGenerator.Settings;
 using UnityEditor;
 using UnityEngine;
 
@@ -39,7 +40,7 @@ namespace Amenonegames.DataClassGenerator.Editor
                 {
                     var columns = line.Split(',');
                                 
-                    if (IsNativeType(columns[0].Trim()))
+                    if (ValidTypeJudge.IsValidTypeStr(columns[0].Trim()))
                     {
                         
                         typeStr = columns;
@@ -112,11 +113,7 @@ namespace {namespaceName}
         }
     
         
-        private static bool IsNativeType(string field)
-        {
-            string[] nativeTypes = new [] { "int", "uint" ,"float", "double", "bool", "string" ,"Vector2","Vector3" }; // 例
-            return nativeTypes.Contains(field);
-        }
+
         
         private static string ConvertToNamespace(string folderPath)
         {

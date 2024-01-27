@@ -2,6 +2,7 @@
 using System.Linq;
 using Amenonegames.CSVDataParser;
 using UnityEngine;
+using Assets.DataClassGenerator.Samples.UsecaseSample.Scripts;
 
 namespace Assets.DataClassGenerator.Sample.Scripts
 {
@@ -14,7 +15,7 @@ namespace Assets.DataClassGenerator.Sample.Scripts
 
         private void GetSampleData()
         {
-            var data = TextParser.ToModels<Sample>(Resources.Load<TextAsset>("Sample"));
+            var data = TextParser.ToModels<Samples.UsecaseSample.Scripts.Sample>(Resources.Load<TextAsset>("Sample"));
             Debug.Log("Damage:" + data[0].Damage.ToString());
         }
     }

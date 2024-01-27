@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace Assets.DataClassGenerator.Sample.Scripts
+namespace Assets.DataClassGenerator.Samples.UsecaseSample.Scripts
 {
 
     [System.Serializable]

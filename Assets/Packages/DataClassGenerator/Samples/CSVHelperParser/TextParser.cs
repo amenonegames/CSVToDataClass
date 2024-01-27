@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Packages.DataClassGenerator.Settings;
 using UnityEngine;
 
 namespace Amenonegames.CSVDataParser
@@ -27,7 +28,7 @@ namespace Amenonegames.CSVDataParser
             {
                 if (args.Row.TryGetField<string>(i, out var field))
                 {
-                    if (IsNativeType(field)) // 特定の文字列が含まれていればスキップ
+                    if (ValidTypeJudge.IsValidTypeStr(field)) // 特定の文字列が含まれていればスキップ
                     {
                         return true;
                     }
