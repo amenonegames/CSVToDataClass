@@ -52,16 +52,6 @@ namespace Amenonegames.DataClassGenerator.Editor
             return (fileName, propertyNameClumns, typeStr);
         }
 
-        private static void GenerateDirIfNotExists(string csvFilePath)
-        {
-            // Create Directory if not exists
-            string directoryPath = "";
-            directoryPath = Path.GetDirectoryName(csvFilePath);
-            if (!Directory.Exists(directoryPath))
-                if (directoryPath != null)
-                    Directory.CreateDirectory(directoryPath);
-        }
-
         private static string BuildClassStr(string fileName, string filePath , string[] propertyNameClumns , string[] typeStr)
         {
             var builder = new StringBuilder();
@@ -112,8 +102,6 @@ namespace {namespaceName}
             
         }
     
-        
-
         
         private static string ConvertToNamespace(string folderPath)
         {

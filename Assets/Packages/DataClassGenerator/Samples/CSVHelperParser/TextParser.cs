@@ -38,12 +38,6 @@ namespace Amenonegames.CSVDataParser
             return false;
         }
         
-        private static bool IsNativeType(string field)
-        {
-            string[] nativeTypes = new [] { "int", "uint" ,"float", "double", "bool", "string" ,"Vector2","Vector3" }; // 例
-            return nativeTypes.Contains(field);
-        }
-        
         /// <summary>
         /// 読み込みCSVがUTF-8でエンコードされていることを前提とする
         /// </summary>
