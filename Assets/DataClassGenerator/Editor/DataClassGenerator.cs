@@ -5,7 +5,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace DataClassGenerator
+namespace Amenonegames.DataClassGenerator.Editor
 {
     public static class DataClassGenerator
     {
@@ -13,12 +13,11 @@ namespace DataClassGenerator
         public static void Generate(TextAsset asset , string folderFullPath)
         {
             var data = GetData(asset);
-            var source = BuildClassStr(data.fileName, data.propertyNameClumns, data.typeStr);
             
             var folderPath = GetSubPathFromFolder(folderFullPath, "Assets");
-            
             // filenameとfolderPathからファイルパスを生成
             string filePath = Path.Combine(folderPath, $"{data.fileName}.cs");
+            var source = BuildClassStr(data.fileName , filePath , data.propertyNameClumns, data.typeStr);
             
             File.WriteAllText(filePath, source);
             AssetDatabase.ImportAsset(filePath);
@@ -27,7 +26,7 @@ namespace DataClassGenerator
         public static string GetSubPathFromFolder(string fullPath, string targetFolder)
         {
             // パスをディレクトリ名の配列に分割
-            var directories = fullPath.Split("/");
+            var directories = fullPath.Split(Path.DirectorySeparatorChar);
 
             // 指定されたフォルダ名を含むインデックスを見つける
             int folderIndex = Array.IndexOf(directories, targetFolder);
@@ -83,16 +82,22 @@ namespace DataClassGenerator
                     Directory.CreateDirectory(directoryPath);
         }
 
-        private static string BuildClassStr(string fileName, string[] propertyNameClumns , string[] typeStr)
+        private static string BuildClassStr(string fileName, string filePath , string[] propertyNameClumns , string[] typeStr)
         {
             var builder = new StringBuilder();
-            var namespaceName = ConvertToNamespace(fileName);
-            
+            var namespaceName = ConvertToNamespace(filePath);
+
             builder.Append($@"
 using UnityEngine;
-
+");
+            if (!string.IsNullOrEmpty(namespaceName))
+            {
+                builder.Append($@"
 namespace {namespaceName}
 {{
+");
+            }
+            builder.Append($@"
     [System.Serializable]
     public class {fileName}
     {{");
@@ -116,8 +121,13 @@ namespace {namespaceName}
             }
                     
             builder.Append(@"
-    }
+    }");
+            if (!string.IsNullOrEmpty(namespaceName))
+            {
+                builder.Append(@"
 }");
+            }
+
             return builder.ToString();
             
         }
@@ -131,11 +141,20 @@ namespace {namespaceName}
         
         private static string ConvertToNamespace(string folderPath)
         {
+            string removePath = Path.Combine("Assets", "Scripts");
+            
             // "Assets/Scripts/"を取り除く
-            string namespacePath = folderPath.Replace("Assets/Scripts/", "");
+            string namespacePath = folderPath.Replace(removePath, "");
+            
+            // 末尾のファイル名部分を取り除く
+            int lastSlashIndex = namespacePath.LastIndexOf(Path.DirectorySeparatorChar);
+            if (lastSlashIndex >= 0)
+            {
+                namespacePath = namespacePath.Substring(0, lastSlashIndex);
+            }
 
             // パスのスラッシュをドットに置換して名前空間形式にする
-            string namespaceName = namespacePath.Replace("/", ".");
+            string namespaceName = namespacePath.Replace(Path.DirectorySeparatorChar.ToString(), ".");
 
             return namespaceName;
         }

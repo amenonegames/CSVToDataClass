@@ -1,7 +1,8 @@
-﻿using UnityEditor;
+﻿using System.IO;
+using UnityEditor;
 using UnityEngine;
 
-namespace DataClassGenerator
+namespace Amenonegames.DataClassGenerator.Editor
 {
     public class GenerateCodeWindow : EditorWindow
     {
@@ -36,6 +37,8 @@ namespace DataClassGenerator
 
             if (GUILayout.Button("Generate DataClass") && textAsset != null && !string.IsNullOrEmpty(folderFullPath))
             {
+                // pathの区切り文字を置換
+                folderFullPath = folderFullPath.Replace('/', Path.DirectorySeparatorChar);
                 DataClassGenerator.Generate(textAsset, folderFullPath);
             }
 

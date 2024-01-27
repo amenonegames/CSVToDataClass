@@ -1,8 +1,6 @@
 
 using UnityEngine;
 
-namespace Sample
-{
     [System.Serializable]
     public class Sample
     {
@@ -39,4 +37,3 @@ namespace Sample
             set => _description = value;
         }
     }
-}
