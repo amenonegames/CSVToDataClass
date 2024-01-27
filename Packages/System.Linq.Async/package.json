@@ -1,0 +1,15 @@
+{
+    "name": "org.nuget.system.linq.async",
+    "version": "4.1.1",
+    "displayName": "System.Linq.Async",
+    "description": "Package Description",
+    "unity": "2018.3",
+    "keywords": [
+        ""
+    ],
+    "author": {
+        "name": ".NET Foundation and Contributors",
+        "email": "",
+        "url": "https://github.com/dotnet/reactive"
+    }
+}

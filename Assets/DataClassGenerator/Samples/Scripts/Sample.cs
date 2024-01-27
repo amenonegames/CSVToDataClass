@@ -1,6 +1,9 @@
 
 using UnityEngine;
 
+namespace Assets.DataClassGenerator.Sample.Scripts
+{
+
     [System.Serializable]
     public class Sample
     {
@@ -37,3 +40,4 @@ using UnityEngine;
             set => _description = value;
         }
     }
+}

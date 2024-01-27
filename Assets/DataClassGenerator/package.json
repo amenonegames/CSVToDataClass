@@ -4,7 +4,16 @@
   "version": "0.1.0",
   "unity": "2020.1",
   "description": "A tool to generate DataClass from CSV file.",
+  "dependencies": {
+    "CsvHelper": "30.0.0"
+  },
   "author": {
     "name": "amenonegames"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Use case",
+      "description": "Use case sample",
+      "path": "Samples/"
+    }    ]
 }

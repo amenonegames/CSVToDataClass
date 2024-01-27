@@ -1,0 +1,20 @@
+{
+    "name": "org.nuget.csvhelper",
+    "version": "30.1.0",
+    "displayName": "CsvHelper",
+    "description": "A library for reading and writing CSV files. Extremely fast, flexible, and easy to use. Supports reading and writing of custom class objects.",
+    "unity": "2018.3",
+    "keywords": [
+        "csv",
+        "csvhelper",
+        "comma",
+        "separated",
+        "value",
+        "delimited"
+    ],
+    "author": {
+        "name": "Josh Close",
+        "email": "",
+        "url": "https://joshclose.github.io/CsvHelper/"
+    }
+}

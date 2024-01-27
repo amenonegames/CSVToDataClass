@@ -10,11 +10,10 @@ namespace Amenonegames.DataClassGenerator.Editor
     public static class DataClassGenerator
     {
 
-        public static void Generate(TextAsset asset , string folderFullPath)
+        public static void Generate(TextAsset asset , string folderPath)
         {
             var data = GetData(asset);
             
-            var folderPath = GetSubPathFromFolder(folderFullPath, "Assets");
             // filenameとfolderPathからファイルパスを生成
             string filePath = Path.Combine(folderPath, $"{data.fileName}.cs");
             var source = BuildClassStr(data.fileName , filePath , data.propertyNameClumns, data.typeStr);
@@ -23,26 +22,6 @@ namespace Amenonegames.DataClassGenerator.Editor
             AssetDatabase.ImportAsset(filePath);
         }
         
-        public static string GetSubPathFromFolder(string fullPath, string targetFolder)
-        {
-            // パスをディレクトリ名の配列に分割
-            var directories = fullPath.Split(Path.DirectorySeparatorChar);
-
-            // 指定されたフォルダ名を含むインデックスを見つける
-            int folderIndex = Array.IndexOf(directories, targetFolder);
-
-            if (folderIndex <= 0)
-            {
-                // 指定されたフォルダ名が見つからなかった場合
-                throw new InvalidOperationException("Target folder not found in the path.");
-            }
-
-            // 指定されたフォルダ名より上の部分を削除
-            var subPathDirectories = directories.Skip(folderIndex);
-
-            // 残りの部分を結合して返す
-            return Path.Combine(subPathDirectories.ToArray());
-        }
 
         private static (string fileName, string[] propertyNameClumns , string[] typeStr) GetData( TextAsset asset )
         {
