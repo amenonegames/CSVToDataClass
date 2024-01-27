@@ -6,7 +6,7 @@ namespace DataClassGenerator
     public class GenerateCodeWindow : EditorWindow
     {
         private TextAsset textAsset;
-        private string folderPath = ""; // フォルダパスを格納する変数
+        private string folderFullPath = ""; // フォルダパスを格納する変数
         
         [MenuItem("Tools/GenerateCode/DataClassFromCsv")]
         private static void OpenWindow()
@@ -27,16 +27,16 @@ namespace DataClassGenerator
                 string selectedPath = EditorUtility.OpenFolderPanel("Select Folder", "", "");
                 if (!string.IsNullOrEmpty(selectedPath))
                 {
-                    folderPath = selectedPath;
+                    folderFullPath = selectedPath;
                 }
             }
 
             // 選択されたフォルダパスを表示
-            EditorGUILayout.TextField("Folder Path", folderPath);
+            EditorGUILayout.TextField("Folder Path", folderFullPath);
 
-            if (GUILayout.Button("Generate DataClass") && textAsset != null && !string.IsNullOrEmpty(folderPath))
+            if (GUILayout.Button("Generate DataClass") && textAsset != null && !string.IsNullOrEmpty(folderFullPath))
             {
-                DataClassGenerator.Generate(textAsset, folderPath);
+                DataClassGenerator.Generate(textAsset, folderFullPath);
             }
 
         }

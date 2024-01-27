@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEditor;
@@ -9,13 +10,39 @@ namespace DataClassGenerator
     public static class DataClassGenerator
     {
 
-        public static void Generate(TextAsset asset , string folderPath)
+        public static void Generate(TextAsset asset , string folderFullPath)
         {
             var data = GetData(asset);
             var source = BuildClassStr(data.fileName, data.propertyNameClumns, data.typeStr);
             
-            File.WriteAllText(folderPath, source);
-            AssetDatabase.ImportAsset(folderPath);
+            var folderPath = GetSubPathFromFolder(folderFullPath, "Assets");
+            
+            // filenameとfolderPathからファイルパスを生成
+            string filePath = Path.Combine(folderPath, $"{data.fileName}.cs");
+            
+            File.WriteAllText(filePath, source);
+            AssetDatabase.ImportAsset(filePath);
+        }
+        
+        public static string GetSubPathFromFolder(string fullPath, string targetFolder)
+        {
+            // パスをディレクトリ名の配列に分割
+            var directories = fullPath.Split("/");
+
+            // 指定されたフォルダ名を含むインデックスを見つける
+            int folderIndex = Array.IndexOf(directories, targetFolder);
+
+            if (folderIndex <= 0)
+            {
+                // 指定されたフォルダ名が見つからなかった場合
+                throw new InvalidOperationException("Target folder not found in the path.");
+            }
+
+            // 指定されたフォルダ名より上の部分を削除
+            var subPathDirectories = directories.Skip(folderIndex);
+
+            // 残りの部分を結合して返す
+            return Path.Combine(subPathDirectories.ToArray());
         }
 
         private static (string fileName, string[] propertyNameClumns , string[] typeStr) GetData( TextAsset asset )
@@ -34,8 +61,9 @@ namespace DataClassGenerator
                 {
                     var columns = line.Split(',');
                                 
-                    if (IsNativeType(columns[0]))
+                    if (IsNativeType(columns[0].Trim()))
                     {
+                        
                         typeStr = columns;
                         break;
                     }
@@ -55,7 +83,7 @@ namespace DataClassGenerator
                     Directory.CreateDirectory(directoryPath);
         }
 
-        public static string BuildClassStr(string fileName, string[] propertyNameClumns , string[] typeStr)
+        private static string BuildClassStr(string fileName, string[] propertyNameClumns , string[] typeStr)
         {
             var builder = new StringBuilder();
             var namespaceName = ConvertToNamespace(fileName);
@@ -76,6 +104,8 @@ namespace {namespaceName}
                 var variableName = propertyName.ToLower();
                 
                 builder.Append($@"
+
+        [SerializeField]
         private {typeName} _{variableName};
         public {typeName} {propertyName} 
         {{ 
@@ -93,7 +123,7 @@ namespace {namespaceName}
         }
     
         
-        static bool IsNativeType(string field)
+        private static bool IsNativeType(string field)
         {
             string[] nativeTypes = new [] { "int", "uint" ,"float", "double", "bool", "string" ,"Vector2","Vector3" }; // 例
             return nativeTypes.Contains(field);
