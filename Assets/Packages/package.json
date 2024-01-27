@@ -3,10 +3,7 @@
   "displayName": "CsvToDataClassGenerator",
   "version": "0.1.0",
   "unity": "2020.1",
-  "description": "A tool to generate DataClass from CSV file.",
-  "dependencies": {
-    "CsvHelper": "30.0.0"
-  },
+  "description": "[!]Requirement: CSVHelper from Nuget[!] This is a tool to generate DataClass from CSV file.",
   "author": {
     "name": "amenonegames"
   },
