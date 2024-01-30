@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -10,19 +11,22 @@ namespace Amenonegames.DataClassGenerator.Editor
     {
         private TextAsset textAsset;
         private string folderPath = ""; // フォルダパスを格納する変数
+
+        private List<MonoScript> scripts = new List<MonoScript>();
         
         [MenuItem("Tools/GenerateCode/DataClassFromCsv")]
         private static void OpenWindow()
         {
             GetWindow<GenerateCodeWindow>("Generate Code");
         }
-
+        
         private void OnGUI()
         {
             GUILayout.Label("Attach CSV", EditorStyles.boldLabel);
             textAsset =
-                (TextAsset)EditorGUILayout.ObjectField("CSV", textAsset, typeof(TextAsset), false);
+                (TextAsset)EditorGUILayout.ObjectField("SourceCSV", textAsset, typeof(TextAsset), false);
             
+            GUILayout.Space(10);
             // フォルダパスの選択
             GUILayout.Label("Select Output Folder", EditorStyles.boldLabel);
             if (GUILayout.Button("Select Folder"))
@@ -37,11 +41,33 @@ namespace Amenonegames.DataClassGenerator.Editor
                     folderPath = GetSubPathFromFolder(separatorCharReplacedPath, "Assets");
                 }
             }
-
             // 選択されたフォルダパスを表示
             GUILayout.Label($"Folder Path :{folderPath}",EditorStyles.boldLabel);
 
-            if (GUILayout.Button("Generate DataClass"))
+            GUILayout.Space(10);
+            // クラスまたはインターフェースの選択
+            GUILayout.Label("Select Inheritance/Interface", EditorStyles.boldLabel);
+            if (GUILayout.Button("Add New Type"))
+            {
+                scripts.Add(null);
+            }
+
+            for (int i = 0; i < scripts.Count; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                scripts[i] = (MonoScript)EditorGUILayout.ObjectField("Inherit", scripts[i], typeof(MonoScript), false);
+                if (GUILayout.Button("Remove"))
+                {
+                    scripts.RemoveAt(i);
+                    i--;
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+            
+            // 選択されたタイプを表示
+            //EditorGUILayout.PropertyField(typeProperty);
+            GUILayout.Space(20);
+            if (GUILayout.Button("Generate DataClass", GUILayout.Height(40)))
             {
                 //textAssetがnullの場合は例外を投げる
                 if (textAsset == null)
@@ -60,7 +86,7 @@ namespace Amenonegames.DataClassGenerator.Editor
                 }
 
                 
-                DataClassGenerator.Generate(textAsset, folderPath);
+                DataClassGenerator.Generate(textAsset, folderPath,scripts);
             }
 
         }

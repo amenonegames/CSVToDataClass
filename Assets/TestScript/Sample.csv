@@ -1,0 +1,4 @@
+Id,Health,Damage,Description
+int	,int,float,string
+1,5,3,test
+2,5,10,テスト
