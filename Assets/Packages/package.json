@@ -1,0 +1,21 @@
+﻿{
+  "name": "com.amenone.CSVToDataClassGenerator",
+  "displayName": "CsvToDataClassGenerator",
+  "version": "0.2.0",
+  "unity": "2022.3.12",
+  "description": "This is a tool to generate DataClass from CSV file.",
+  "author": {
+    "name": "amenonegames"
+  },
+  "samples": [
+    {
+      "displayName": "Use case",
+      "description": "Use case sample",
+      "path": "Samples/UsecaseSample"
+    },
+    {
+      "displayName": "Additional CSVHelper Parser",
+      "description": "[!]Requirement: CSVHelper from Nuget[!] CSVPaser using CSVHelper. This is additional option",
+      "path": "Samples/CSVHelperParser"
+    }]
+}

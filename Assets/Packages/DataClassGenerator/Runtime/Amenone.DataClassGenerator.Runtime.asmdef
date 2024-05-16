@@ -1,9 +1,7 @@
 {
-    "name": "Amenonegames.DataClassGenerator.CSVHelperParser",
+    "name": "Amenone.DataClassGenerator.Runtime",
     "rootNamespace": "",
-    "references": [
-        "GUID:4f1a62035affff74297d514043adc6e9"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

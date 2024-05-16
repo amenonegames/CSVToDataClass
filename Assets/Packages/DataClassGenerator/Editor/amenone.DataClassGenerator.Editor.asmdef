@@ -1,15 +1,15 @@
 {
-    "name": "Amenonegames.DataClassGenerator.CSVHelperParser",
+    "name": "Amenone.DataClassGenerator.Editor",
     "rootNamespace": "",
-    "references": [
-        "GUID:4f1a62035affff74297d514043adc6e9"
+    "references": [],
+    "includePlatforms": [
+        "Editor"
     ],
-    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": true,
+    "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

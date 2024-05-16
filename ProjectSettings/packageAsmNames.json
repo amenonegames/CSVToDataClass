@@ -1,12 +1,6 @@
 {
     "managedList": [
         {
-            "packageName": "CsvHelper",
-            "fileNames": [
-                "CsvHelper"
-            ]
-        },
-        {
             "packageName": "System.Linq.Async",
             "fileNames": [
                 "System.Linq.Async"
@@ -16,6 +10,12 @@
             "packageName": "Csv",
             "fileNames": [
                 "Csv"
+            ]
+        },
+        {
+            "packageName": "CsvHelper",
+            "fileNames": [
+                "CsvHelper"
             ]
         }
     ]

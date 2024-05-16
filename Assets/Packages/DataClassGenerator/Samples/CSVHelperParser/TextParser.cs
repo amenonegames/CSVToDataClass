@@ -1,9 +1,9 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Amenonegames.DataClassGenerator.Settings;
 using UnityEngine;
 
 namespace Amenonegames.CSVHelperParser
@@ -18,25 +18,8 @@ namespace Amenonegames.CSVHelperParser
             Delimiter = ",", //区切り文字カンマ
             IgnoreBlankLines = true, //空白行を無視
             DetectColumnCountChanges = true, //異なる列数を検知
-            AllowComments = true,
-            ShouldSkipRecord = record => SkipRecord(record) //trueを返すとSkipする
+            AllowComments = true
         };
-        
-        private static bool SkipRecord(ShouldSkipRecordArgs args)
-        {
-            for (int i = 0; i < args.Row.Parser.Count; i++)
-            {
-                if (args.Row.TryGetField<string>(i, out var field))
-                {
-                    if (ValidTypeJudge.IsValidTypeStr(field)) // 特定の文字列が含まれていればスキップ
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
         
         /// <summary>
         /// 読み込みCSVがUTF-8でエンコードされていることを前提とする
@@ -52,15 +35,22 @@ namespace Amenonegames.CSVHelperParser
                 config = DefaultConfig;
             }
 
-            T[] models = null;
+            List<T> models = new List<T>();
+            int currentRow = 0; // 行カウンタの初期化
             try
             {
-                //Shift-Jis対応時には必要
-                //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance); // Shift-JISを扱うためのおまじない
                 using (var reader = new StringReader(asset.text))
                 using (var csv = new CsvHelper.CsvReader(reader, config))
                 {
-                    models = csv.GetRecords<T>().ToArray();
+                    while (csv.Read())
+                    {
+                        currentRow++;  // 行カウンタをインクリメント
+                        if (currentRow == 2) continue;  // 2行目をスキップ
+                    
+                        // データ処理のロジックをここに書く
+                        var record = csv.GetRecord<T>();
+                        models.Add(record);  // レコードをリストに追加
+                    }
                 }
             }
             catch (CsvHelper.BadDataException ex)
@@ -68,7 +58,7 @@ namespace Amenonegames.CSVHelperParser
                 Debug.LogError($"エラー：{ex.Context.Parser.RawRow}行の列数が異なります。[値：{ex.Context.Parser.RawRecord}]");
             }
 
-            return models ;
+            return models.ToArray() ;
         }
         
     }

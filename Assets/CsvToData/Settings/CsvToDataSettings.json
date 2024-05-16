@@ -1,0 +1,13 @@
+{
+    "settings": [
+        {
+            "FilePath": "Assets/Packages/DataClassGenerator/Samples/UseCase/Resources/Sample2.csv",
+            "CSVSeparator": ",",
+            "NameSpace": "Data",
+            "Serializable": true,
+            "InterfaceEnable": true,
+            "InterfaceName": "IData",
+            "Usings": []
+        }
+    ]
+}
