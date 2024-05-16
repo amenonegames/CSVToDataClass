@@ -11,7 +11,7 @@
     {
       "displayName": "Use case",
       "description": "Use case sample",
-      "path": "Samples/UsecaseSample"
+      "path": "Samples/UseCase"
     },
     {
       "displayName": "Additional CSVHelper Parser",
