@@ -1,22 +1,37 @@
-Menu>Tool>GenerateCodeで利用
-CSVと、出力先フォルダを入力してGenerateすると、CSVの内容に応じたクラスを自動生成する。
+Createメニュー＞CsvToData/Settings からScriptableObjectを生成し、
+SaveAssetボタンを押すことでCSVを監視対象に加える。
+該当CSVの編集は以降常に追従され、データクラスが自動生成される。
+
 また、NugetのCSVHelper を導入し、SamplesのAdditional CSVHelper Parserを導入することで、専用のTextParserクラスを導入できる。
 これはHeader以外の行に表示された型名の入力を、無視し、必要データだけを取り込むようにセッティングされている。
 
-現在の対応型は以下の通り
-"int", "uint" ,"float", "double", "bool", "string" , "Vector2" , "Vector3"
-
 Install URL
-https://github.com/amenonegames/DataClassGeneratorEditor.git?path=Assets/Packages/DataClassGenerator
+https://github.com/amenonegames/CSVToDataClass.git?path=Assets/Packages/DataClassGenerator
 
-CSV形式のサンプル
+# ScreptableObjectの項目
+ - FilePath
+   csvファイルのAssetsからのパスを入力する。
+ - CSVSeparetor
+   csvの区切り文字を一文字で入力
+ - NameSpace
+   Dataクラスを生成する時のNameSpaceを指定する
+ - Serializable
+   Trueの場合は、クラスがSerializableになり、各メンバがSerializeFieldとして生成される
+ - InterfaceEnable
+   trueの場合はInterfaceが生成される
+ - InterfaceName
+   Interfaceの名前を入力する。同じ名前のInterfaceが複数のcsvに設定されている場合、共通するプロパティのみを実装する。
+ - Usings
+   DataClassの生成時にusingの宣言が必要な場合は記入する。
+
+# CSV形式のサンプル
 | PropertyName1 | PropertyName2 | ... |
 | ---- | ---- | ---- |
 | PropertyType1 | PropertyType2 | ... |
 | Value | Value | ... |
 | Value | Value | ... |
 
-展開されるクラスのサンプル
+# 生成されるコード
 
 ```csharp
 
@@ -44,7 +59,7 @@ CSV形式のサンプル
 
 ```
 
-データの読み込み方法
+# データの読み込み方法
 
 ```csharp
 
