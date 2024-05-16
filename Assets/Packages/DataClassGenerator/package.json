@@ -1,8 +1,8 @@
 ﻿{
-  "name": "com.amenone.csvtodataclassgenerator",
+  "name": "com.amenone.dataclassgenerator",
   "displayName": "CsvToDataClassGenerator",
-  "version": "0.2.0",
-  "unity": "2022.3.12",
+  "version": "0.1.2",
+  "unity": "2020.1",
   "description": "This is a tool to generate DataClass from CSV file.",
   "author": {
     "name": "amenonegames"
