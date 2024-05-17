@@ -4,6 +4,8 @@ namespace DefaultNamespace
 {
     public class UseTest
     {
-        Sample2 sample2 = new Sample2();
+        private Sample2 test;
+
+        // Sample2 sample2 = new Sample2();
     }
 }
