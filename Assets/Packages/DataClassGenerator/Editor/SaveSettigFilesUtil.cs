@@ -56,17 +56,17 @@ namespace Packages.DataClassGenerator.Editor
                 lines = File.ReadAllLines(rspPath).ToList();
             }
 
-            string additionalFileLine = $"/additionalfile:{Path.Combine(SettingsPath, JsonFileName)}";
+            string additionalFileLine = $"/additionalfile:{Path.Combine(SettingsPath.Replace('/','\\'), JsonFileName)}";
             if (!lines.Contains(additionalFileLine))
             {
                 lines.Add(additionalFileLine);
             }
 
-            foreach (var setting in settings.settings)
+            foreach (var setting in settings.Settings)
             {
                 string filePath = setting.FilePath;
 
-                string fileLine = $"/additionalfile:{filePath.Replace('\\', '/')}";
+                string fileLine = $"/additionalfile:{filePath.Replace('/','\\')}";
                 if (!lines.Contains(fileLine))
                 {
                     lines.Add(fileLine);

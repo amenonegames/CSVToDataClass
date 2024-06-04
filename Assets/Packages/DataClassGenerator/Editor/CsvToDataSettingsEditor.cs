@@ -20,12 +20,13 @@ namespace Packages.DataClassGenerator.Editor
             // Add a button to add a new item with default values
             if (GUILayout.Button("Add New Setting"))
             {
-                if (settings.settings == null)
+                if (settings.Settings == null)
                 {
-                    settings.settings = new List<CsvToDataSetting>();
+                    settings.Settings = new List<CsvToDataSetting>();
                 }
-                settings.settings.Add(new CsvToDataSetting
+                settings.Settings.Add(new CsvToDataSetting
                 {
+                    AssemblyName = "Assembly-CSharp",
                     FilePath = "Assetsからの相対位置でファイルパスを指定",
                     CSVSeparator = ",",
                     NameSpace = "Data",
@@ -48,7 +49,7 @@ namespace Packages.DataClassGenerator.Editor
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
                 
-                settings.prevRootPaths = settings.settings.Select(s => s.FilePath).ToArray();
+                settings.prevRootPaths = settings.Settings.Select(s => s.FilePath).ToArray();
             }
             
         }
@@ -60,7 +61,7 @@ namespace Packages.DataClassGenerator.Editor
             List<string> removedRootPath = new List<string>();
             foreach (var prevRootPath in settings.prevRootPaths)
             {
-                if( settings.settings.Select(x => x.FilePath).Any( x => x != prevRootPath) )
+                if( settings.Settings.Select(x => x.FilePath).Any( x => x != prevRootPath) )
                     removedRootPath.Add(prevRootPath);
             }
                 

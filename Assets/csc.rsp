@@ -1,3 +1,3 @@
 -r:System.IO.Compression.FileSystem.dll
-/additionalfile:Assets/CsvToData/Settings/CsvToDataSettings.json
-/additionalfile:Assets/Packages/DataClassGenerator/Samples/UseCase/Resources/Sample2.csv
+/additionalfile:Assets\CsvToData\Settings\CsvToDataSettings.json
+/additionalfile:Assets\Packages\DataClassGenerator\Samples\UseCase\Resources\Sample2.csv
