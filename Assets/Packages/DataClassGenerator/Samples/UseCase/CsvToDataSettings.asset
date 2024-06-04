@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2037ee2ce244670b5382d1dc1a130a2, type: 3}
   m_Name: CsvToDataSettings
   m_EditorClassIdentifier: 
-  FlagClass: "\u751F\u6210\u30A2\u30BB\u30F3\u30D6\u30EA\u7279\u5B9A\u306E\u305F\u3081\u306E\u30AF\u30E9\u30B9\u540D\u3092\u5165\u529B\uFF1ANameSpace\u3092\u542B\u3081\u3066\u8A18\u5165"
   Settings:
-  - AssemblyName: 
+  - AssemblyName: Amenone.DataClassGenerator.UseCase
     FilePath: Assets/Packages/DataClassGenerator/Samples/UseCase/Resources/Sample2.csv
     CSVSeparator: ','
     NameSpace: Data

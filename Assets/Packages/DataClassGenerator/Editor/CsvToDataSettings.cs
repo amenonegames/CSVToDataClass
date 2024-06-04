@@ -11,7 +11,6 @@ namespace Packages.DataClassGenerator.Editor
     [CreateAssetMenu(fileName = "CsvToDataSettings", menuName = "CsvToData/Settings")]
     public class CsvToDataSettings : ScriptableObject
     {
-        public string FlagClass = "生成アセンブリ特定のためのクラス名を入力：NameSpaceを含めて記入";
         public List<CsvToDataSetting> Settings = new List<CsvToDataSetting>();
 
         [NonSerialized] public string[] prevRootPaths = new string[0];
