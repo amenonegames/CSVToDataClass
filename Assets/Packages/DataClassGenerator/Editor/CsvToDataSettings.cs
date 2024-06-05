@@ -13,7 +13,7 @@ namespace Packages.DataClassGenerator.Editor
     {
         public List<CsvToDataSetting> Settings = new List<CsvToDataSetting>();
 
-        [NonSerialized] public string[] prevRootPaths = new string[0];
+        [NonSerialized] public string[] prevFilePaths = new string[0];
     }
     
     [System.Serializable]

@@ -22,7 +22,7 @@ namespace Packages.DataClassGenerator.Editor
             File.WriteAllText(Path.Combine(SettingsPath, JsonFileName), json);
         }
         
-        public static void RemoveFromRspFile(IEnumerable<string> rootPaths)
+        public static void RemoveFromRspFile(List<string> filePaths)
         {
             string rspPath = Path.Combine("Assets", RspFileName);
             List<string> lines = new List<string>();
@@ -31,19 +31,21 @@ namespace Packages.DataClassGenerator.Editor
             {
                 lines = File.ReadAllLines(rspPath).ToList();
             }
+
+            var newLines = lines.ToList();
             
-            foreach (var rootPath in rootPaths)
+            foreach (var filePath in filePaths)
             {
                 foreach (var line in lines)
                 {
-                    if (line.Contains(rootPath))
+                    if (line.Contains(filePath.Replace('/','\\')))
                     {
-                        lines.Remove(line);
+                        newLines.Remove(line);
                     }
                 }
             }
 
-            File.WriteAllLines(rspPath, lines);
+            File.WriteAllLines(rspPath, newLines);
         }
 
         public static void AppendToRspFile(CsvToDataSettings settings)

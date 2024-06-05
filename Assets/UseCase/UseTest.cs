@@ -4,7 +4,7 @@ namespace DefaultNamespace
 {
     public class UseTest
     {
-        private Sample2 test;
+        private Sample3 test;
 
         // Sample2 sample2 = new Sample2();
     }
