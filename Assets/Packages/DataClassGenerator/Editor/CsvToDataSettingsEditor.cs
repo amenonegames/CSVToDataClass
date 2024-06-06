@@ -5,16 +5,21 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-[CustomEditor(typeof(CsvToDataSettings))]
+[CustomEditor(typeof(CsvToDataSettingsAsset))]
 public class CsvToDataSettingsEditor : Editor
 {
     private ReorderableList reorderableList;
-    private bool hasUnsavedChanges = false;
+    private new bool hasUnsavedChanges = false;
+    private string prefsKey;
 
     private void OnEnable()
     {
+        prefsKey = $"{target.GetInstanceID()}_hasUnsavedChanges";
+        hasUnsavedChanges = EditorPrefs.GetBool(prefsKey, false);
+
+        serializedObject.Update();
         reorderableList = new ReorderableList(serializedObject,
-            serializedObject.FindProperty("Settings"),
+            serializedObject.FindProperty("Settings").FindPropertyRelative("Settings"),
             true, true, true, true);
 
         reorderableList.drawHeaderCallback = (Rect rect) =>
@@ -74,6 +79,7 @@ public class CsvToDataSettingsEditor : Editor
             if (EditorGUI.EndChangeCheck())
             {
                 hasUnsavedChanges = true;
+                EditorPrefs.SetBool(prefsKey, true);
             }
         };
 
@@ -103,13 +109,18 @@ public class CsvToDataSettingsEditor : Editor
             element.FindPropertyRelative("Usings").ClearArray();
 
             hasUnsavedChanges = true;
+            EditorPrefs.SetBool(prefsKey, true);
         };
 
         reorderableList.onRemoveCallback = (ReorderableList list) =>
         {
             ReorderableList.defaultBehaviours.DoRemoveButton(list);
             hasUnsavedChanges = true;
+            EditorPrefs.SetBool(prefsKey, true);
         };
+
+        // 初期状態の保存
+        serializedObject.ApplyModifiedProperties();
     }
 
     public override void OnInspectorGUI()
@@ -117,6 +128,13 @@ public class CsvToDataSettingsEditor : Editor
         serializedObject.Update();
         reorderableList.DoLayoutList();
         serializedObject.ApplyModifiedProperties();
+
+        // hasUnsavedChangesが正しく反映されるようにする
+        if (GUI.changed)
+        {
+            hasUnsavedChanges = true;
+            EditorPrefs.SetBool(prefsKey, true);
+        }
 
         if (hasUnsavedChanges)
         {
@@ -134,15 +152,17 @@ public class CsvToDataSettingsEditor : Editor
         }
     }
 
-    private void SaveChanges()
+    public override void SaveChanges()
     {
         hasUnsavedChanges = false;
+        EditorPrefs.SetBool(prefsKey, false);
         EditorUtility.SetDirty(target);
         AssetDatabase.SaveAssets();
         // 編集している CsvToDataSettings インスタンスを取得
-        CsvToDataSettings settings = (CsvToDataSettings)target;
+        CsvToDataSettingsAsset settingsAsset = (CsvToDataSettingsAsset)target;
+        CsvToDataSettings settings = settingsAsset.Settings;
         
-        RemoveCheck(settings);
+        RemoveCheck(settingsAsset);
         SaveSettigFiles.SaveSettingsToJson(settings);
         SaveSettigFiles.AppendToRspFile(settings);
         EditorUtility.SetDirty(target);
@@ -152,12 +172,12 @@ public class CsvToDataSettingsEditor : Editor
         Debug.Log("Changes saved.");
     }
     
-    private void RemoveCheck(CsvToDataSettings settings)
+    private void RemoveCheck(CsvToDataSettingsAsset settingsAsset)
     {
-        if (settings.prevFilePaths is null) return;
-                
+        if (settingsAsset.prevFilePaths is null) return;
+        CsvToDataSettings settings = settingsAsset.Settings;
         List<string> removedRootPath = new List<string>();
-        foreach (var prevFilePath in settings.prevFilePaths)
+        foreach (var prevFilePath in settingsAsset.prevFilePaths)
         {
             bool isPrevFileStayCurrent = false;
             foreach (var currentSetting in settings.Settings)
@@ -172,7 +192,7 @@ public class CsvToDataSettingsEditor : Editor
         if(removedRootPath.Count > 0)
             SaveSettigFiles.RemoveFromRspFile(removedRootPath);
         
-        settings.prevFilePaths = settings.Settings.Select(s => s.FilePath).ToArray();
+        settingsAsset.prevFilePaths = settings.Settings.Select(s => s.FilePath).ToArray();
     }
     
     private Texture2D MakeTex(int width, int height, Color col)
@@ -188,6 +208,3 @@ public class CsvToDataSettingsEditor : Editor
         return result;
     }
 }
-
-
-

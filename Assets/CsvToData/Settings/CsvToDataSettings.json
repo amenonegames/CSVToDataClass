@@ -2,6 +2,16 @@
     "Settings": [
         {
             "AssemblyName": "Amenone.DataClassGenerator.UseCase",
+            "FilePath": "Assets/UseCase/Resources/Sample2.csv",
+            "CSVSeparator": ",",
+            "NameSpace": "Namespace",
+            "Serializable": true,
+            "InterfaceEnable": false,
+            "InterfaceName": "",
+            "Usings": []
+        },
+        {
+            "AssemblyName": "Amenone.DataClassGenerator.UseCase",
             "FilePath": "Assets/UseCase/Resources/Sample3.csv",
             "CSVSeparator": ",",
             "NameSpace": "Data",
