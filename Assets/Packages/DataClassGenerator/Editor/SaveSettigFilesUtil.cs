@@ -22,8 +22,17 @@ namespace Packages.DataClassGenerator.Editor
             File.WriteAllText(Path.Combine(SettingsPath, JsonFileName), json);
         }
         
-        public static void RemoveFromRspFile(List<string> filePaths)
+        public static void DeleteSettingsJson()
         {
+            string jsonPath = Path.Combine(SettingsPath, JsonFileName);
+            if (File.Exists(jsonPath))
+            {
+                File.Delete(jsonPath);
+            }
+        }
+        
+        public static void RemoveFromRspFile(IEnumerable<string> filePaths , bool withSettingJson = false)
+        { 
             string rspPath = Path.Combine("Assets", RspFileName);
             List<string> lines = new List<string>();
 
@@ -42,11 +51,17 @@ namespace Packages.DataClassGenerator.Editor
                     {
                         newLines.Remove(line);
                     }
+                    
+                    if(withSettingJson && line.Contains(JsonFileName))
+                    {
+                        newLines.Remove(line);
+                    }
                 }
             }
 
             File.WriteAllLines(rspPath, newLines);
         }
+        
 
         public static void AppendToRspFile(CsvToDataSettings settings)
         {

@@ -10,12 +10,19 @@ namespace Packages.DataClassGenerator.Editor
 {
     
     [CreateAssetMenu(fileName = "CsvToDataSettingsAsset", menuName = "CsvToData/CsvToDataSettingsAsset")]
-    public class CsvToDataSettingsAsset : ScriptableObject
+    public class CsvToDataSettingsAsset : ScriptableObject , IOnDelete
     {
         public CsvToDataSettings Settings = new ();
 
         [SerializeField,HideInInspector] public string[] prevFilePaths = new string[0];
         [SerializeField,HideInInspector] public bool hasUnsavedChanges = false;
+        public void OnDelete()
+        {
+            SaveSettigFiles.DeleteSettingsJson();
+            Debug.Log("delete settings json");
+            SaveSettigFiles.RemoveFromRspFile(prevFilePaths,true);
+            Debug.Log("remove file address from rsp file");
+        }
     }
 
     [System.Serializable]
@@ -100,6 +107,10 @@ namespace Packages.DataClassGenerator.Editor
         public string[] Usings ;
         
     }
-    
+
+    internal interface IOnDelete
+    {
+        void OnDelete();
+    }
 
 }
